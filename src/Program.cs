@@ -10,6 +10,7 @@ namespace Chess3
         {
             GameState gs = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
             Console.WriteLine(JsonSerializer.Serialize(gs));
+            Console.WriteLine(gs.ToString());
         }
     }
 }

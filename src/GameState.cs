@@ -126,5 +126,116 @@ namespace Chess3
 
             return ToReturn;
         }
+
+        //Returns the FEN-notation of the piece on a specific square (i.e. "P" or "p" or "N" or "n")
+        //If there is no piece on the square, returns null
+        public char? PieceOnSquare(Square s)
+        {
+            if (WhitePawns.SquareOccupied(s))
+            {
+                return 'P';
+            }
+            else if (WhiteKnights.SquareOccupied(s))
+            {
+                return 'N';
+            }
+            else if (WhiteBishops.SquareOccupied(s))
+            {
+                return 'B';
+            }
+            else if (WhiteRooks.SquareOccupied(s))
+            {
+                return 'R';
+            }
+            else if (WhiteQueens.SquareOccupied(s))
+            {
+                return 'Q';
+            }
+            else if (WhiteKings.SquareOccupied(s))
+            {
+                return 'K';
+            }
+            else if (BlackPawns.SquareOccupied(s))
+            {
+                return 'p';
+            }
+            else if (BlackKnights.SquareOccupied(s))
+            {
+                return 'n';
+            }
+            else if (BlackBishops.SquareOccupied(s))
+            {
+                return 'b';
+            }
+            else if (BlackRooks.SquareOccupied(s))
+            {
+                return 'r';
+            }
+            else if (BlackQueens.SquareOccupied(s))
+            {
+                return 'q';
+            }
+            else if (BlackKings.SquareOccupied(s))
+            {
+                return 'k';
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public override string ToString()
+        {
+            string ToReturn = "";
+
+            //Board representation
+            for (int rank = 7; rank >= 0; rank--)
+            {
+                for (int file = 0; file < 8; file ++)
+                {
+                    Square OnSquare = (Square)((rank * 8) + file);
+                    char? OccupyingPieceNotation = PieceOnSquare(OnSquare);
+                    if (OccupyingPieceNotation != null)
+                    {
+                        ToReturn = ToReturn + OccupyingPieceNotation.Value.ToString();
+                    }
+                    else
+                    {
+                        ToReturn = ToReturn + "1";
+                    }
+                }
+
+                //Add slash if not on the last rank (don't want a trailing rank at the end)
+                if (rank != 0)
+                {
+                    ToReturn = ToReturn + "/";
+                }
+            }
+
+            //Now condense the strands of 1's into groups
+            ToReturn = ToReturn.Replace("11111111", "8");
+            ToReturn = ToReturn.Replace("1111111", "7");
+            ToReturn = ToReturn.Replace("111111", "6");
+            ToReturn = ToReturn.Replace("11111", "5");
+            ToReturn = ToReturn.Replace("1111", "4");
+            ToReturn = ToReturn.Replace("111", "3");
+            ToReturn = ToReturn.Replace("11", "2");
+            
+            //Next to move
+            if (NextToMove)
+            {
+                ToReturn = ToReturn + " w";
+            }
+            else 
+            {
+                ToReturn = ToReturn + " b";
+            }
+
+            return ToReturn;
+
+        }
+
+        
     }
 }
