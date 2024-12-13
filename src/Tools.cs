@@ -2,7 +2,7 @@ using System;
 
 namespace Chess3
 {
-    public class Tools
+    public static class Tools
     {
         public static string ULongToBits(ulong value)
         {
@@ -22,18 +22,18 @@ namespace Chess3
             }
         }
 
-        public static ulong SetBit(ulong board, Square position, bool value)
+        public static void SetBit(this ref ulong board, Square position, bool value)
         {
             if (value)
             {
                 ulong mask = 1UL << Convert.ToInt32(position);
-                return board | mask; //OR operator.
+                board = board | mask; //OR operator.
             }
             else
             {
                 ulong mask = 1UL << Convert.ToInt32(position); //Set up a mask with 1 at the target position
                 mask = ~mask; //invert the mask to get a mask with 0 at the position and 1s everywhere else
-                return board & mask; //use the AND operator to clear out the bit (if there is one) at the target position (the AND operator does NOT go to 1 if both in the mask are 0... it defaults to 0 in that case)
+                board = board & mask; //use the AND operator to clear out the bit (if there is one) at the target position (the AND operator does NOT go to 1 if both in the mask are 0... it defaults to 0 in that case)
             }
         }
 
