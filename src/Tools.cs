@@ -38,7 +38,7 @@ namespace Chess3
         }
 
         //Checks if a specific bit at a specific position is 1
-        public static bool BitOccupied(ulong board, Square position)
+        public static bool BitOccupied(this ulong board, Square position)
         {
             ulong mask = 1UL << Convert.ToInt32(position);
             ulong AfterAnd = board & mask; //An AND operation. This value will have a 1 in it if the bit of position indeed ALSO had a 1 in it. Thus, we can determine YES, this bit was occupied if the value is > 0 and NO it was not occupied if it was 0.
