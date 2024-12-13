@@ -19,6 +19,9 @@ namespace Chess3
         public ulong BlackQueens {get; set;}
         public ulong BlackKings {get; set;}
 
+        //Next to move
+        public bool NextToMove {get; set;} //true = white, false = black
+
         public static GameState Load(string FEN)
         {
             GameState ToReturn = new GameState();
@@ -104,6 +107,22 @@ namespace Chess3
                 onRank = onRank - 1;   
             }
             
+            //Next to move
+            if (parts.Length > 1)
+            {
+                if (parts[1] == "w")
+                {
+                    ToReturn.NextToMove = true;
+                }
+                else if (parts[1] == "b")
+                {
+                    ToReturn.NextToMove = false;
+                }
+                else
+                {
+                    throw new Exception("'" + parts[1] + "' not recognized as a valid next-to-move indicator");
+                }
+            }
 
             return ToReturn;
         }
