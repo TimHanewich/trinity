@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Chess3
 {
@@ -6,10 +8,8 @@ namespace Chess3
     {
         public static void Main(string[] args)
         {
-            ulong board = 0;
-            Console.WriteLine(board);
-            board.SetBit(Square.A1, true);
-            Console.WriteLine(board);
+            GameState gs = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Console.WriteLine(JsonSerializer.Serialize(gs));
         }
     }
 }
