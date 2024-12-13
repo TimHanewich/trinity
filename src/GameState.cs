@@ -53,51 +53,51 @@ namespace Chess3
                         Square ThisPosition = (Square)((8*onRank) + onFile);
                         if (c == 'P')
                         {
-                            ToReturn.WhitePawns = ToReturn.WhitePawns.SetBit(ThisPosition, true);
+                            ToReturn.WhitePawns = ToReturn.WhitePawns.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'N')
                         {
-                            ToReturn.WhiteKnights = ToReturn.WhiteKnights.SetBit(ThisPosition, true);
+                            ToReturn.WhiteKnights = ToReturn.WhiteKnights.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'B')
                         {
-                            ToReturn.WhiteBishops = ToReturn.WhiteBishops.SetBit(ThisPosition, true);
+                            ToReturn.WhiteBishops = ToReturn.WhiteBishops.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'R')
                         {
-                            ToReturn.WhiteRooks = ToReturn.WhiteRooks.SetBit(ThisPosition, true);
+                            ToReturn.WhiteRooks = ToReturn.WhiteRooks.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'Q')
                         {
-                            ToReturn.WhiteQueens = ToReturn.WhiteQueens.SetBit(ThisPosition, true);
+                            ToReturn.WhiteQueens = ToReturn.WhiteQueens.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'K')
                         {
-                            ToReturn.WhiteKings = ToReturn.WhiteKings.SetBit(ThisPosition, true);
+                            ToReturn.WhiteKings = ToReturn.WhiteKings.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'p')
                         {
-                            ToReturn.BlackPawns = ToReturn.BlackPawns.SetBit(ThisPosition, true);
+                            ToReturn.BlackPawns = ToReturn.BlackPawns.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'n')
                         {
-                            ToReturn.BlackKnights = ToReturn.BlackKnights.SetBit(ThisPosition, true);
+                            ToReturn.BlackKnights = ToReturn.BlackKnights.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'b')
                         {
-                            ToReturn.BlackBishops = ToReturn.BlackBishops.SetBit(ThisPosition, true);
+                            ToReturn.BlackBishops = ToReturn.BlackBishops.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'r')
                         {
-                            ToReturn.BlackRooks = ToReturn.BlackRooks.SetBit(ThisPosition, true);
+                            ToReturn.BlackRooks = ToReturn.BlackRooks.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'q')
                         {
-                            ToReturn.BlackQueens = ToReturn.BlackQueens.SetBit(ThisPosition, true);
+                            ToReturn.BlackQueens = ToReturn.BlackQueens.SetSquare(ThisPosition, true);
                         }
                         else if (c == 'k')
                         {
-                            ToReturn.BlackKings = ToReturn.BlackKings.SetBit(ThisPosition, true);
+                            ToReturn.BlackKings = ToReturn.BlackKings.SetSquare(ThisPosition, true);
                         }
                     }
                     onFile = onFile + 1; //increment the file we're on

@@ -22,7 +22,7 @@ namespace Chess3
             }
         }
 
-        public static ulong SetBit(this ulong board, Square position, bool value)
+        public static ulong SetSquare(this ulong board, Square position, bool value)
         {
             if (value)
             {
