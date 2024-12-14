@@ -9,47 +9,46 @@ namespace Chess3
         public static void Main(string[] args)
         {
             GameState gs = GameState.Load("PPPPPPPP/8/8/Q7/7Q/8/8/8");
+            gs.Print();
+            Console.ReadLine();
 
-            //Make a list
-            List<ulong> ToReturn = new List<ulong>();
-            ulong WhitePieces = gs.White; //all white occupancy
-            ulong BlackPieces = gs.Black; //all black occupancy
-            ulong current = gs.WhiteQueens;
-            while (true)
+            List<GameState> PotentialWhiteQueenUpMoves = new List<GameState>();
+            foreach (Square s in Enum.GetValues(typeof(Square)))
             {
-                Console.WriteLine("Before move:");
-                Tools.PrintBitboard(current);
-                Console.ReadLine();
-
-                current = current << 8; //move up
-
-                Console.WriteLine("After move");
-                Tools.PrintBitboard(current);
-                Console.ReadLine();
-
-                ulong collisions = current & WhitePieces; //Find where they collide
-                Console.WriteLine("COLLISIONS:");
-                Tools.PrintBitboard(collisions);
-                Console.ReadLine();
-
-                //Kill the piece where there are collisions
-                current = current ^ collisions; //using XOR operator
-
-                //If the value still stands even after considering the collisions, add it.
-                if (current > 0) //there are still valid queen moves on the board
+                if (gs.WhiteQueens.SquareOccupied(s)) //We found a queen!
                 {
-                    ToReturn.Add(current);
-                }
-                else
-                {
-                    break;
+                    Square PotentialMove = s;
+                    while (true)
+                    {
+                        PotentialMove = PotentialMove + 8; //1 rank up
+                        if (gs.White.SquareOccupied(PotentialMove)) //occupied by our own pieces
+                        {
+                            break;
+                        }
+                        else if (gs.Black.SquareOccupied(PotentialMove)) //occupied by a black piece we can capture
+                        {
+                            GameState pgs = gs;
+                            pgs.WhiteQueens = pgs.WhiteQueens.SetSquare(s, false); //The square the piece is coming from, set it to empty
+                            pgs.ClearSquare(PotentialMove); //Clear the square it is going to (we do not know what particular black piece is there)
+                            pgs.WhiteQueens = pgs.WhiteQueens.SetSquare(PotentialMove, true); //Put the queen piece where it belongs
+                            PotentialWhiteQueenUpMoves.Add(pgs);
+                            break;
+                        }
+                        else //It is not occupied!
+                        {
+                            GameState pgs = gs;
+                            pgs.WhiteQueens = pgs.WhiteQueens.SetSquare(s, false); //The square the piece is coming from, set it to empty
+                            pgs.WhiteQueens = pgs.WhiteQueens.SetSquare(PotentialMove, true); //Put the queen piece where it belongs
+                            PotentialWhiteQueenUpMoves.Add(pgs);
+                        }
+                    }
                 }
             }
 
-            Console.WriteLine("Next moves: ");
-            foreach (ulong ul in ToReturn)
+            foreach (GameState ngs in PotentialWhiteQueenUpMoves)
             {
-                Console.WriteLine(ul);
+                ngs.Print();
+                Console.ReadLine();
             }
         }
     }
