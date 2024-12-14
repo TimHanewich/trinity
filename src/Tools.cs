@@ -14,38 +14,7 @@ namespace Chess3
             string bitstr = ULongToBits(board);
             for (int rank = 7; rank >= 0; rank--)
             {
-                if (rank == 7)
-                {
-                    Console.Write("A|");
-                }
-                if (rank == 6)
-                {
-                    Console.Write("B|");
-                }
-                if (rank == 5)
-                {
-                    Console.Write("C|");
-                }
-                if (rank == 4)
-                {
-                    Console.Write("D|");
-                }
-                if (rank == 3)
-                {
-                    Console.Write("E|");
-                }
-                if (rank == 2)
-                {
-                    Console.Write("F|");
-                }
-                if (rank == 1)
-                {
-                    Console.Write("G|");
-                }
-                if (rank == 0)
-                {
-                    Console.Write("H|");
-                }
+                Console.Write((rank + 1).ToString() + "|");
                 for (int file = 0; file < 8; file++)
                 {
                     int index = 63 - ((rank*8) + file); 
