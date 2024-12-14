@@ -236,6 +236,19 @@ namespace Chess3
 
         }
 
-        
+        public ulong Black
+        {
+            get
+            {
+                return BlackPawns | BlackKnights | BlackBishops | BlackRooks | BlackQueens | BlackKings;
+            }
+        }
+
+        //Returns all the possible next states from this next move
+        public GameState[] NextStates()
+        {
+            return new GameState[]{};
+        }
+
     }
 }

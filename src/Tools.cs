@@ -12,14 +12,49 @@ namespace Chess3
         public static void PrintBitboard(ulong board)
         {
             string bitstr = ULongToBits(board);
-            for (int r = 0; r < 8; r++)
+            for (int rank = 7; rank >= 0; rank--)
             {
-                for (int f = 0; f < 8; f++)
+                if (rank == 7)
                 {
-                    Console.Write(bitstr[(r*2) + f]);
+                    Console.Write("A|");
+                }
+                if (rank == 6)
+                {
+                    Console.Write("B|");
+                }
+                if (rank == 5)
+                {
+                    Console.Write("C|");
+                }
+                if (rank == 4)
+                {
+                    Console.Write("D|");
+                }
+                if (rank == 3)
+                {
+                    Console.Write("E|");
+                }
+                if (rank == 2)
+                {
+                    Console.Write("F|");
+                }
+                if (rank == 1)
+                {
+                    Console.Write("G|");
+                }
+                if (rank == 0)
+                {
+                    Console.Write("H|");
+                }
+                for (int file = 0; file < 8; file++)
+                {
+                    int index = 63 - ((rank*8) + file); 
+                    Console.Write(bitstr[index].ToString());
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("  --------");
+            Console.WriteLine("  ABCDEFGH");
         }
 
         public static ulong SetSquare(this ulong board, Square position, bool value)

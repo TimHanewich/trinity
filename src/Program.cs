@@ -8,11 +8,10 @@ namespace Chess3
     {
         public static void Main(string[] args)
         {
-            //string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-            string FEN = "r5k1/1p3p2/2p2qpb/2PpR3/3P2r1/pP1Q1NP1/P4PK1/7R b - - 1 33";
+            string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
             GameState gs = GameState.Load(FEN);
-            Console.WriteLine(JsonSerializer.Serialize(gs));
-            Console.WriteLine(gs.ToString());
+            Console.WriteLine(Tools.ULongToBits(gs.WhitePawns));
+            Tools.PrintBitboard(gs.WhitePawns);
         }
     }
 }
