@@ -10,8 +10,8 @@ namespace Chess3
         {
             string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
             GameState gs = GameState.Load(FEN);
-            Console.WriteLine(Tools.ULongToBits(gs.WhitePawns));
-            Tools.PrintBitboard(gs.WhitePawns);
+            Tools.PrintBitboard(gs.Black);
+            Tools.PrintBitboard(gs.White);
         }
     }
 }

@@ -236,6 +236,16 @@ namespace Chess3
 
         }
 
+        //Returns a COMBINED bitboard for every white piece, quickly showing you which squares are occupied by white pieces
+        public ulong White
+        {
+            get
+            {
+                return WhitePawns | WhiteKnights | WhiteBishops | WhiteRooks | WhiteQueens | WhiteKings;
+            }
+        }
+
+        //Returns a COMBINED bitboard for every black piece, quickly showing you which squares are occupied by black pieces
         public ulong Black
         {
             get
