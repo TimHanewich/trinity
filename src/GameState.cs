@@ -257,18 +257,18 @@ namespace Chess3
         //Ensures the square is cleared (0) on all bitboards
         public void ClearSquare(Square s)
         {
-            WhitePawns.SetSquare(s, false);
-            WhiteKnights.SetSquare(s, false);
-            WhiteBishops.SetSquare(s, false);
-            WhiteRooks.SetSquare(s, false);
-            WhiteQueens.SetSquare(s, false);
-            WhiteKings.SetSquare(s, false);
-            BlackPawns.SetSquare(s, false);
-            BlackKnights.SetSquare(s, false);
-            BlackBishops.SetSquare(s, false);
-            BlackRooks.SetSquare(s, false);
-            BlackQueens.SetSquare(s, false);
-            BlackKings.SetSquare(s, false);
+            WhitePawns = WhitePawns.SetSquare(s, false);
+            WhiteKnights = WhiteKnights.SetSquare(s, false);
+            WhiteBishops = WhiteBishops.SetSquare(s, false);
+            WhiteRooks = WhiteRooks.SetSquare(s, false);
+            WhiteQueens = WhiteQueens.SetSquare(s, false);
+            WhiteKings = WhiteKings.SetSquare(s, false);
+            BlackPawns = BlackPawns.SetSquare(s, false);
+            BlackKnights = BlackKnights.SetSquare(s, false);
+            BlackBishops = BlackBishops.SetSquare(s, false);
+            BlackRooks = BlackRooks.SetSquare(s, false);
+            BlackQueens = BlackQueens.SetSquare(s, false);
+            BlackKings = BlackKings.SetSquare(s, false);
         }
 
     
