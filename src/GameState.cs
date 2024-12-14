@@ -260,5 +260,19 @@ namespace Chess3
             return new GameState[]{};
         }
 
+        public ulong[] NextWhiteQueenUpMoves()
+        {
+            List<ulong> ToReturn = new List<ulong>();
+            
+            ulong WhitePieces = White; //all white occupancy
+            ulong BlackPieces = Black; //all black occupancy
+            ulong current = WhiteQueens;
+            while (true)
+            {
+                current = current << 8; //move up
+                ulong WhiteCollisions = current & WhitePieces;
+            }
+        }
+
     }
 }
