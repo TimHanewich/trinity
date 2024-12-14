@@ -300,5 +300,88 @@ namespace Chess3
             Console.WriteLine("  --------");
             Console.WriteLine("  ABCDEFGH");
         }
+    
+        //Moves a pice from point A to point B, regardless of what color.
+        //If there is a piece in the destination, replaces it (captures it)
+        public void MovePiece(Square origin, Square destination)
+        {
+            if (WhitePawns.SquareOccupied(origin))
+            {
+                WhitePawns.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhitePawns.SetSquare(destination, true);
+            }
+            else if (WhiteKnights.SquareOccupied(origin))
+            {
+                WhiteKnights.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhiteKings.SetSquare(destination, true);
+            }
+            else if (WhiteBishops.SquareOccupied(origin))
+            {
+                WhiteBishops.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhiteBishops.SetSquare(destination, true);
+            }
+            else if (WhiteRooks.SquareOccupied(origin))
+            {
+                WhiteRooks.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhiteRooks.SetSquare(destination, true);
+            }
+            else if (WhiteQueens.SquareOccupied(origin))
+            {
+                WhiteQueens.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhiteQueens.SetSquare(destination, true);
+            }
+            else if (WhiteKings.SquareOccupied(origin))
+            {
+                WhiteKings.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                WhiteKings.SetSquare(destination, true);
+            }
+            else if (BlackPawns.SquareOccupied(origin))
+            {
+                BlackPawns.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackPawns.SetSquare(destination, true);
+            }
+            else if (BlackKnights.SquareOccupied(origin))
+            {
+                BlackKnights.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackKings.SetSquare(destination, true);
+            }
+            else if (BlackBishops.SquareOccupied(origin))
+            {
+                BlackBishops.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackBishops.SetSquare(destination, true);
+            }
+            else if (BlackRooks.SquareOccupied(origin))
+            {
+                BlackRooks.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackRooks.SetSquare(destination, true);
+            }
+            else if (BlackQueens.SquareOccupied(origin))
+            {
+                BlackQueens.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackQueens.SetSquare(destination, true);
+            }
+            else if (BlackKings.SquareOccupied(origin))
+            {
+                BlackKings.SetSquare(origin, false);
+                ClearSquare(destination); //Clear whatever is on the destination square, if anything
+                BlackKings.SetSquare(destination, true);
+            }
+            else
+            {
+                throw new Exception("Unable to execute move from " + origin.ToString() + " to " + destination.ToString() + "! No piece detected on origin square " + origin.ToString() + ".");
+            }
+        }
+        
     }
 }
