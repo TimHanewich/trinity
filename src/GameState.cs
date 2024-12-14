@@ -254,25 +254,51 @@ namespace Chess3
             }
         }
 
-        //Returns all the possible next states from this next move
-        public GameState[] NextStates()
+        //Ensures the square is cleared (0) on all bitboards
+        public void ClearSquare(Square s)
         {
-            return new GameState[]{};
+            WhitePawns.SetSquare(s, false);
+            WhiteKnights.SetSquare(s, false);
+            WhiteBishops.SetSquare(s, false);
+            WhiteRooks.SetSquare(s, false);
+            WhiteQueens.SetSquare(s, false);
+            WhiteKings.SetSquare(s, false);
+            BlackPawns.SetSquare(s, false);
+            BlackKnights.SetSquare(s, false);
+            BlackBishops.SetSquare(s, false);
+            BlackRooks.SetSquare(s, false);
+            BlackQueens.SetSquare(s, false);
+            BlackKings.SetSquare(s, false);
         }
 
-        public ulong[] NextWhiteQueenUpMoves()
+    
+        public void Print()
         {
-            List<ulong> ToReturn = new List<ulong>();
-            
-            ulong WhitePieces = White; //all white occupancy
-            ulong BlackPieces = Black; //all black occupancy
-            ulong current = WhiteQueens;
-            while (true)
+            Console.WriteLine("  --------");
+            for (int rank = 7; rank >= 0; rank--)
             {
-                current = current << 8; //move up
-                ulong WhiteCollisions = current & WhitePieces;
+                Console.Write((rank + 1).ToString() + "|");
+                for (int file = 0; file < 8; file++)
+                {
+                    Square ThisSquare = (Square)((rank * 8) + file);
+                    if (WhitePawns.SquareOccupied(ThisSquare)){Console.Write("P");}
+                    else if (WhiteKnights.SquareOccupied(ThisSquare)){Console.Write("N");}
+                    else if (WhiteBishops.SquareOccupied(ThisSquare)){Console.Write("B");}
+                    else if (WhiteRooks.SquareOccupied(ThisSquare)){Console.Write("R");}
+                    else if (WhiteQueens.SquareOccupied(ThisSquare)){Console.Write("Q");}
+                    else if (WhiteKings.SquareOccupied(ThisSquare)){Console.Write("K");}
+                    else if (BlackPawns.SquareOccupied(ThisSquare)){Console.Write("p");}
+                    else if (BlackKnights.SquareOccupied(ThisSquare)){Console.Write("n");}
+                    else if (BlackBishops.SquareOccupied(ThisSquare)){Console.Write("b");}
+                    else if (BlackRooks.SquareOccupied(ThisSquare)){Console.Write("r");}
+                    else if (BlackQueens.SquareOccupied(ThisSquare)){Console.Write("q");}
+                    else if (BlackKings.SquareOccupied(ThisSquare)){Console.Write("k");}
+                    else {Console.Write(" ");}
+                }
+                Console.WriteLine("|");
             }
+            Console.WriteLine("  --------");
+            Console.WriteLine("  ABCDEFGH");
         }
-
     }
 }
