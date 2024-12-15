@@ -410,11 +410,74 @@ namespace Chess3
                     {
                         if (!white.SquareOccupied(ForwardOne) && !black.SquareOccupied(ForwardOne)) //A pawn can only move forward if the spot in front of it is empty
                         {
+                            //If the forward move is INTO the first rank or last rank, a promotion is possible, so add each possible promotion!
+                            if ((Convert.ToInt32(ForwardOne) >= 56 && Convert.ToInt32(ForwardOne) <= 63) || (Convert.ToInt32(ForwardOne) >= 0 && (Convert.ToInt32(ForwardOne) <= 7))) //the forward position (target) is in a first or last rank
+                            {
+                                //Add queen promotion (most likely)
+                                GameState ngsQ = this; //duplicate
+                                if (NextToMove) //white pawn
+                                {
+                                    ngsQ.WhitePawns = ngsQ.WhitePawns.SetSquare(s, false); //Remove pawn
+                                    ngsQ.WhiteQueens = ngsQ.WhiteQueens.SetSquare(ForwardOne, true); //Add queen
+                                }
+                                else //black pawn
+                                {
+                                    ngsQ.BlackPawns = ngsQ.BlackPawns.SetSquare(s, false); //Remove pawn
+                                    ngsQ.BlackQueens = ngsQ.BlackQueens.SetSquare(ForwardOne, true); //Add queen
+                                }
+                                ToReturn.Add(ngsQ);
 
-                            //Add it
-                            GameState ngs = this; //duplicate
-                            ngs.MovePiece(s, ForwardOne);
-                            ToReturn.Add(ngs);
+                                //Add rook
+                                GameState ngsR = this; //duplicate
+                                if (NextToMove) //white
+                                {
+                                    ngsR.WhitePawns = ngsR.WhitePawns.SetSquare(s, false); //Remove pawn
+                                    ngsR.WhiteRooks = ngsR.WhiteRooks.SetSquare(ForwardOne, true);
+                                }
+                                else //black
+                                {
+                                    ngsR.BlackPawns = ngsR.BlackPawns.SetSquare(s, false); //Remove pawn
+                                    ngsR.BlackRooks = ngsR.BlackRooks.SetSquare(ForwardOne, true);
+                                }
+                                ToReturn.Add(ngsR);
+
+                                //Add bishop
+                                GameState ngsB = this; //duplicate
+                                if (NextToMove) //white
+                                {
+                                    ngsB.WhitePawns = ngsB.WhitePawns.SetSquare(s, false); //Remove pawn
+                                    ngsB.WhiteBishops = ngsB.WhiteBishops.SetSquare(ForwardOne, true);
+                                }
+                                else //black
+                                {
+                                    ngsB.BlackPawns = ngsB.BlackPawns.SetSquare(s, false); //Remove pawn
+                                    ngsB.BlackBishops = ngsB.BlackBishops.SetSquare(ForwardOne, true);
+                                }
+                                ToReturn.Add(ngsR);
+
+                                //Add knight
+                                GameState ngsN = this; //duplicate
+                                if (NextToMove) //white
+                                {
+                                    ngsN.WhitePawns = ngsN.WhitePawns.SetSquare(s, false); //Remove pawn
+                                    ngsN.WhiteKnights = ngsN.WhiteKnights.SetSquare(ForwardOne, true);
+                                }
+                                else //black
+                                {
+                                    ngsN.BlackPawns = ngsN.BlackPawns.SetSquare(s, false); //Remove pawn
+                                    ngsN.BlackKnights = ngsN.BlackKnights.SetSquare(ForwardOne, true);
+                                }
+                                ToReturn.Add(ngsN);
+                            }
+                            else //It is just a normal move forward.
+                            {
+                                //Add it
+                                GameState ngs = this; //duplicate
+                                ngs.MovePiece(s, ForwardOne);
+                                ToReturn.Add(ngs);
+                            }
+
+                            
 
                             //Is forward two possible?
                             //We put the the forward-two check INSIDE the forward-one PASS because technically speaking, a forward-two move is only possible if a forward-one attack is possible
