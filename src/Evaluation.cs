@@ -9,7 +9,7 @@ namespace Chess3
         {
             if (depth == 0)
             {
-                return gs.MaterialDifference();
+                return gs.MaterialDifference(); //using the raw material difference right now, but in the future should probably consider things like control of board, position, etc.
             }
 
             if (color)
@@ -44,7 +44,7 @@ namespace Chess3
             }
         }
 
-        //Uses the minimax function
+        //Uses the minimax function to "peer ahead"
         public static int Evaluate(this GameState gs, int depth)
         {
             //return bs.minimax(depth, bs.NextToMove);
