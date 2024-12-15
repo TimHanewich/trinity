@@ -96,5 +96,31 @@ namespace Chess3
             }
         }
 
+        #region "internal tools"
+
+        //Get additional scoring based on a particular colors center of board positioning
+        public static float CenterOfBoardEvaluation(ulong all_color_pieces)
+        {
+            float[] SquareEvals = new float[]{0f,0f,0f,0f,0f,0f,0f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0f,0f,0f,0f,0f,0f,0f}; //Weighted eval scores to boost pieces on certain squares, rewarding more for the center squares. In the order of A1, B1, C1, D1 etc... (same as Square enum) 
+            
+            float ToReturn = 0.0f;
+            foreach (Square s in Enum.GetValues(typeof(Square)))
+            {
+                if (all_color_pieces.SquareOccupied(s))
+                {
+                    ToReturn = ToReturn + SquareEvals[Convert.ToInt32(s)];
+                }
+            }
+
+            return ToReturn;
+        }
+
+        //Returns the center of board evaluation as a disparity gap (similar to material difference)
+        public static float CenterOfBoardEvaluation(this GameState gs)
+        {
+            return CenterOfBoardEvaluation(gs.White) - CenterOfBoardEvaluation(gs.Black);
+        }
+
+        #endregion
     }
 }
