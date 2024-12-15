@@ -13,8 +13,7 @@ namespace Chess3
             PerfTest();
 
             GameState gs = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-            Console.WriteLine(gs.StaticEvaluate());
-            
+        
             
         }
 

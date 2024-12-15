@@ -17,6 +17,9 @@ namespace Chess3
             //Add in center of board difference
             ToReturn = ToReturn + gs.CenterOfBoardEvaluation();
 
+            //Add in pawn rank evaluation (higher pawn ranks are better!)
+            ToReturn = ToReturn + gs.PawnRankingEvaluation();
+
             return Convert.ToSingle(gs.MaterialDifference());
         }
 
