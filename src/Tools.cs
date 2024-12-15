@@ -61,5 +61,35 @@ namespace Chess3
             }
             return ToReturn;
         }
+    
+        public static string DeduceMove(GameState before, GameState after)
+        {
+            string origin = "";
+            string destination = "";
+            foreach (Square s in Enum.GetValues(typeof(Square)))
+            {
+                if (before.White.SquareOccupied(s) && !after.White.SquareOccupied(s))
+                {
+                    origin = s.ToString();
+                }
+                else if (before.Black.SquareOccupied(s) && !after.Black.SquareOccupied(s))
+                {
+                    origin = s.ToString();
+                }
+                else if (after.White.SquareOccupied(s) && !before.White.SquareOccupied(s))
+                {
+                    destination = s.ToString();
+                }
+                else if (after.Black.SquareOccupied(s) && !before.Black.SquareOccupied(s))
+                {
+                    destination = s.ToString();
+                }
+                else
+                {
+                    throw new Exception("Unable to deduce move that resulted in state '" + after.ToString() + "' from '" + before.ToString() + "'.");
+                }
+            }
+            return origin + " --> " + destination;
+        }
     }
 }

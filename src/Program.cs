@@ -31,5 +31,59 @@ namespace Chess3
             //ngs.Print();
         }
 
+        public static void Game()
+        {
+            Console.WriteLine("Hello!");
+
+            Console.Write("What depth do you want me to evaluate to? > ");
+            string? idepth = Console.ReadLine();
+            if (idepth == null)
+            {
+                Console.WriteLine("Must provide depth.");
+                return;
+            }
+            int depth = Convert.ToInt32(idepth);
+
+            Console.WriteLine("Give me the FEN of the state you want me to make the first move from.");
+            Console.Write("FEN > ");
+            string? starting_position = Console.ReadLine();
+            if (starting_position == null)
+            {
+                Console.WriteLine("FEN not valid.");
+                return;
+            }
+            GameState GAME = GameState.Load(starting_position);
+            int move = 1;
+            while (true)
+            {
+                Console.WriteLine("--- FRAME " + move.ToString() + " ---");
+                Console.WriteLine("Current position: " + GAME.ToString());
+
+                //Evaluate
+                Console.Write("Evaluating my next move...");
+                GameState OptimalNextState = GAME.OptimalNextState(depth);
+                Console.WriteLine("Selected!");
+
+
+                //Deduce move
+                string m = Tools.DeduceMove(GAME, OptimalNextState);
+                Console.WriteLine("My move: " + m);
+                Console.WriteLine("State after my move: " + OptimalNextState.ToString());
+
+                //Ask them what their move is
+                Console.WriteLine();
+                Console.WriteLine("What is the state after your move?");
+                Console.Write("State: ");
+                string? ns = Console.ReadLine();
+                if (ns != null)
+                {
+                    GAME = GameState.Load(ns);
+                }
+                Console.WriteLine();
+
+                move = move + 1;
+            }
+        }
+
     }
 }
