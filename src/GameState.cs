@@ -619,8 +619,6 @@ namespace Chess3
             black = black + (WhiteQueens.Count1Bits() * 10);
             black = black + (WhiteKings.Count1Bits() * 25);
 
-            Console.WriteLine(white);
-            Console.WriteLine(black);
             return white - black;
         }
 
