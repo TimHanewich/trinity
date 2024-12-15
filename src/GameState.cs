@@ -453,7 +453,7 @@ namespace Chess3
                                     ngsB.BlackPawns = ngsB.BlackPawns.SetSquare(s, false); //Remove pawn
                                     ngsB.BlackBishops = ngsB.BlackBishops.SetSquare(ForwardOne, true);
                                 }
-                                ToReturn.Add(ngsR);
+                                ToReturn.Add(ngsB);
 
                                 //Add knight
                                 GameState ngsN = this; //duplicate
