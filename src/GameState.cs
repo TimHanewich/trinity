@@ -389,27 +389,51 @@ namespace Chess3
 
             foreach (Square s in Enum.GetValues(typeof(Square)))
             {
-                if (WhitePawns.SquareOccupied(s) || BlackPawns.SquareOccupied(s))
+                if (WhitePawns.SquareOccupied(s) && NextToMove)
                 {
 
                 }
-                else if (WhiteKnights.SquareOccupied(s) || BlackKnights.SquareOccupied(s))
+                else if (BlackPawns.SquareOccupied(s) && !NextToMove)
                 {
 
                 }
-                else if (WhiteBishops.SquareOccupied(s) || BlackBishops.SquareOccupied(s))
+                else if (WhiteKnights.SquareOccupied(s) && NextToMove)
+                {
+
+                }
+                else if (BlackKnights.SquareOccupied(s) && !NextToMove)
+                {
+
+                }
+                else if (WhiteBishops.SquareOccupied(s) && NextToMove)
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 9, -7, -9, 7));
                 }
-                else if (WhiteRooks.SquareOccupied(s) || BlackRooks.SquareOccupied(s))
+                else if (BlackBishops.SquareOccupied(s) && NextToMove)
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 9, -7, -9, 7));
+                }
+                else if (WhiteRooks.SquareOccupied(s) && NextToMove)
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 8, 1, -8, -1));
                 }
-                else if (WhiteQueens.SquareOccupied(s) || BlackQueens.SquareOccupied(s))
+                else if (BlackRooks.SquareOccupied(s) && NextToMove)
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 8, 1, -8, -1));
+                }
+                else if (WhiteQueens.SquareOccupied(s) && NextToMove)
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 8, 9, 1, -7, -8, -9, -1, 7)); //All directions
                 }
-                else if (WhiteKings.SquareOccupied(s) || BlackKings.SquareOccupied(s))
+                else if (BlackQueens.SquareOccupied(s) && NextToMove)
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 8, 9, 1, -7, -8, -9, -1, 7)); //All directions
+                }
+                else if (WhiteKings.SquareOccupied(s) && NextToMove)
+                {
+
+                }
+                else if (BlackKings.SquareOccupied(s) && NextToMove)
                 {
 
                 }
