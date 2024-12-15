@@ -66,8 +66,7 @@ namespace Chess3
         //Uses the minimax function to "peer ahead"
         public static float Evaluate(this GameState gs, int depth)
         {
-            //return bs.minimax(depth, bs.NextToMove);
-            return gs.minimax_abp(depth, int.MinValue, int.MaxValue, gs.NextToMove);
+            return gs.minimax_abp(depth, float.MinValue, float.MaxValue, gs.NextToMove);
         }
     
         //Finds optimal move for the current color and returns the resulting board state after that move is made
