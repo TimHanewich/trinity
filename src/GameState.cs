@@ -454,7 +454,41 @@ namespace Chess3
                 }
                 else if ((WhiteKings.SquareOccupied(s) && NextToMove) || (BlackKings.SquareOccupied(s) && !NextToMove))
                 {
+                    List<Square> PotentialTargets = new List<Square>();
 
+                    //Add up and down
+                    PotentialTargets.Add((Square)(s + 8)); //up
+                    PotentialTargets.Add((Square)(s - 8)); //down
+
+                    //Add right-side moves
+                    if ((Convert.ToInt32(s) % 8) <= 6) //We are NOT on the H file, so we would have room for a rightward move
+                    {
+                        PotentialTargets.Add((Square)(s + 9)); //up-right
+                        PotentialTargets.Add((Square)(s + 1)); //right
+                        PotentialTargets.Add((Square)(s - 7)); //down-right
+                    }
+
+                    //Add left-side moves
+                    if ((Convert.ToInt32(s) % 8) >= 1) //We are NOT on the A file, so we would have room for a leftward move
+                    {
+                        PotentialTargets.Add((Square)(s + 7)); //up-left
+                        PotentialTargets.Add((Square)(s - 1)); //left
+                        PotentialTargets.Add((Square)(s - 9)); //down-left
+                    }
+
+                    //Evaluate the validity of each potential target. And if the potential target is valid, add its resulting state to the potential next game states
+                    foreach (Square PotentialTarget in PotentialTargets)
+                    {
+                        if (PotentialTarget >= Square.A1 && PotentialTarget <= Square.H8) //within the bounds of the board
+                        {
+                            if ((NextToMove && !White.SquareOccupied(PotentialTarget)) || (!NextToMove && !Black.SquareOccupied(PotentialTarget))) //As long as the square we are trying to move to is NOT occupied by the color we are trying to move to (a friendly piece), we can move to it! Whether it is empty or occupied by an enemy piece, we can move to it (or move to it via a capture)
+                            {
+                                GameState ngs = this; //duplicate
+                                ngs.MovePiece(s, PotentialTarget);
+                                ToReturn.Add(ngs);
+                            }
+                        }
+                    }
                 }
             }
 
