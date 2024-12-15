@@ -501,6 +501,29 @@ namespace Chess3
                         }
                     }
 
+                    //Disqualify #3: account for first/last file diaganol problem
+                    //Take, for example, a queen we were generating diagnol moves for in the down-right movmement. 
+                    //For this movement, -7 would be used.
+                    //Once the new target has already become H1 and the NEXT new target is being calculated, again, it would do -7
+                    //However, where this led to the NEXT rank BELOW being stumbled upon in other files, because there is no "next file", it just goes to A1 (at 0!)
+                    //A1 would of course NOT be in the down-right linear movement line, so it is invalid.
+                    //The same would go for a up-left linear move out of A8. At +7, it would just go to H8, 63, because there is no file "left" of the A file.
+                    //So, in summary, we have to do this because left-diagonal shifts do not work in the A file and right-diagonal shifts do not work in the H file.
+                    if (shift == 7 || shift == -9) //up-left or down-left
+                    {
+                        if ((Convert.ToInt32(NewPosition) % 8) == 7) //The new target is on the H file. And with a up-left/down-left shift, landing on a target in the H file is impossible! So it must have "overlapped" to this from the A file. Kill!
+                        {
+                            break;
+                        }
+                    }
+                    else if (shift == -7 || shift == 9) //up-right or down-right
+                    {
+                        if ((Convert.ToInt32(NewPosition) % 8) == 0) //The new target is on the A file. And with a up-right/down-right shift, landing on a target in the A file is imposible.
+                        {
+                            break;
+                        }
+                    }
+
                     //Disqualify #3: there is a friendly piece occupying that position
                     if (friendlies.SquareOccupied(NewPosition)) //If there is a "friendly" occupying this square, we can't move to it. So just break!
                     {
