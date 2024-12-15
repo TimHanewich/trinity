@@ -4,12 +4,19 @@ namespace Chess3
 {
     public static class Evaluation
     {
+
+        //Evaluates the "static" position on the board (without "looking ahead" moves), considering things like material difference, positioning, control of board, etc.
+        public static float StaticEvaluate(this GameState gs)
+        {
+            return Convert.ToSingle(gs.MaterialDifference());
+        }
+
         //Minimax, with alpha-beta pruning
         private static float minimax_abp(this GameState gs, float depth, float alpha, float beta, bool color)
         {
             if (depth == 0)
             {
-                return Convert.ToSingle(gs.MaterialDifference()); //using the raw material difference right now, but in the future should probably consider things like control of board, position, etc.
+                return gs.StaticEvaluate();
             }
 
             if (color)
