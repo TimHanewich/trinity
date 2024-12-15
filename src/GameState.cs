@@ -476,16 +476,41 @@ namespace Chess3
                 Square NewPosition = origin;
                 while (true)
                 {
+                    //Determine the position of the potential target square
                     NewPosition = (Square)(NewPosition + shift); //move the potential target by one to simulate the movement of the piece, by just one step.
+                    
+                    //Disqualify #1: if we are OUT OF BOUNDS!
                     if (Convert.ToInt32(NewPosition) > 63 || Convert.ToInt32(NewPosition) < 0) //We are "out of bounds", not on the chess board, so break the loop.
                     {
                         break; 
                     }
-                    else if (friendlies.SquareOccupied(NewPosition)) //If there is a "friendly" occupying this square, we can't move to it. So just break!
+
+                    //Disqualify #2: if it is a horizontal shift (left or right), ensure it isn't bleeding into another rank (by going up or down incrementally)
+                    if (shift == 1) //horizontal shift to the right
+                    {
+                        if ((Convert.ToInt32(NewPosition) % 8) == 0) //If the new target it is cleanly divisible by 8 (there is no remainder), that means we just "bled into" the next rank. So stop!
+                        {
+                            break;
+                        }
+                    }
+                    else if (shift == -1) //horizontal shift to the left
+                    {
+                        if ((Convert.ToInt32(NewPosition) % 8) == 7) //If the new target is divisible by eight with SEVEN left over, that means it "bled into" the rank below. So stop!
+                        {
+                            break;
+                        }
+                    }
+
+                    //Disqualify #3: there is a friendly piece occupying that position
+                    if (friendlies.SquareOccupied(NewPosition)) //If there is a "friendly" occupying this square, we can't move to it. So just break!
                     {
                         break; 
                     }
-                    else if (enemies.SquareOccupied(NewPosition)) //There is an enemy piece in this position. 
+
+                    //We got this far at this point, which means the position IS a viable position
+                    //It is viable either because 1) it is an enemey piece we can capture, or 2) It is an empty space we can move to.
+                    //So determine which
+                    if (enemies.SquareOccupied(NewPosition)) //There is an enemy piece in this position. that we can capture
                     {
                         GameState pgs = this; // "copy" the game
                         pgs.MovePiece(origin, NewPosition); //Move the piece, also capturing.
