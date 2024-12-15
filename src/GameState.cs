@@ -449,6 +449,16 @@ namespace Chess3
         // For example, a queen can shift: [8, -8, -1, 1], which would be up 1 rank (+8 in bitboard), down 1 rank (-8 in bitboard), left 1 file (-1 on bitboard) and right 1 file (+1 on bitboard)
         public GameState[] GenerateLinearMoves(Square origin, params int[] shifts)
         {
+            //Validate shifts
+            HashSet<int> ValidShifts = new HashSet<int>(){7, 8, 9, -1, 1, -8, -8, -7};
+            foreach (int shift in shifts)
+            {
+                if (ValidShifts.Contains(shift) == false)
+                {
+                    throw new Exception("Linear shift of '" + shift.ToString() + "' invalid!");
+                }
+            }
+
             //Determine positions of "friendly" pieces and positions of "enemy" pieces
             ulong white = White; //Get bitboard of ALL white pieces
             ulong black = Black; //Get bitboard of ALL black pieces
