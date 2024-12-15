@@ -253,6 +253,15 @@ namespace Chess3
                 return BlackPawns | BlackKnights | BlackBishops | BlackRooks | BlackQueens | BlackKings;
             }
         }
+    
+        //Returns a COMBINED bitboard for all pieces on the board - both white and black!
+        public ulong AllPieces
+        {
+            get
+            {
+                return White | Black;
+            }
+        }
 
         //Ensures the square is cleared (0) on all bitboards
         public void ClearSquare(Square s)
