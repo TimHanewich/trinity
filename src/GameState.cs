@@ -675,8 +675,8 @@ namespace Chess3
 
             return ToReturn.ToArray();
         }    
-    
-        public int MaterialDifference()
+
+        public int WhiteMaterial()
         {
             int white = 0;
             white = white + WhitePawns.Count1Bits();
@@ -685,16 +685,24 @@ namespace Chess3
             white = white + (WhiteRooks.Count1Bits() * 5);
             white = white + (WhiteQueens.Count1Bits() * 10);
             white = white + (WhiteKings.Count1Bits() * 25);
+            return white;
+        }
 
+        public int BlackMaterial()
+        {
             int black = 0;
-            black = black + WhitePawns.Count1Bits();
-            black = black + (WhiteKnights.Count1Bits() * 3);
-            black = black + (WhiteBishops.Count1Bits() * 3);
-            black = black + (WhiteRooks.Count1Bits() * 5);
-            black = black + (WhiteQueens.Count1Bits() * 10);
-            black = black + (WhiteKings.Count1Bits() * 25);
-
-            return white - black;
+            black = black + BlackPawns.Count1Bits();
+            black = black + (BlackKnights.Count1Bits() * 3);
+            black = black + (BlackBishops.Count1Bits() * 3);
+            black = black + (BlackRooks.Count1Bits() * 5);
+            black = black + (BlackQueens.Count1Bits() * 10);
+            black = black + (BlackKings.Count1Bits() * 25);
+            return black;
+        }
+    
+        public int MaterialDifference()
+        {
+            return WhiteMaterial() - BlackMaterial();
         }
 
         #region "internal tools"
