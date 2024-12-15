@@ -425,6 +425,7 @@ namespace Chess3
                                     ngsQ.BlackPawns = ngsQ.BlackPawns.SetSquare(s, false); //Remove pawn
                                     ngsQ.BlackQueens = ngsQ.BlackQueens.SetSquare(ForwardOne, true); //Add queen
                                 }
+                                ngsQ.NextToMove = !NextToMove;
                                 ToReturn.Add(ngsQ);
 
                                 //Add rook
@@ -439,6 +440,7 @@ namespace Chess3
                                     ngsR.BlackPawns = ngsR.BlackPawns.SetSquare(s, false); //Remove pawn
                                     ngsR.BlackRooks = ngsR.BlackRooks.SetSquare(ForwardOne, true);
                                 }
+                                ngsR.NextToMove = !NextToMove;
                                 ToReturn.Add(ngsR);
 
                                 //Add bishop
@@ -453,6 +455,7 @@ namespace Chess3
                                     ngsB.BlackPawns = ngsB.BlackPawns.SetSquare(s, false); //Remove pawn
                                     ngsB.BlackBishops = ngsB.BlackBishops.SetSquare(ForwardOne, true);
                                 }
+                                ngsB.NextToMove = !NextToMove;
                                 ToReturn.Add(ngsB);
 
                                 //Add knight
@@ -467,6 +470,7 @@ namespace Chess3
                                     ngsN.BlackPawns = ngsN.BlackPawns.SetSquare(s, false); //Remove pawn
                                     ngsN.BlackKnights = ngsN.BlackKnights.SetSquare(ForwardOne, true);
                                 }
+                                ngsN.NextToMove = !NextToMove;
                                 ToReturn.Add(ngsN);
                             }
                             else //It is just a normal move forward.
@@ -474,6 +478,7 @@ namespace Chess3
                                 //Add it
                                 GameState ngs = this; //duplicate
                                 ngs.MovePiece(s, ForwardOne);
+                                ngs.NextToMove = !NextToMove;
                                 ToReturn.Add(ngs);
                             }
 
@@ -496,6 +501,7 @@ namespace Chess3
                                 {
                                     GameState ngs2 = this; //duplicate
                                     ngs2.MovePiece(s, ForwardTwo.Value);
+                                    ngs2.NextToMove = !NextToMove;
                                     ToReturn.Add(ngs2);
                                 }
                             }
@@ -521,12 +527,14 @@ namespace Chess3
                         {
                             GameState ngs = this; //duplicate
                             ngs.MovePiece(s, LeftAttack.Value);
+                            ngs.NextToMove = !NextToMove;
                             ToReturn.Add(ngs);
                         }
                         else if (!NextToMove && white.SquareOccupied(LeftAttack.Value))
                         {
                             GameState ngs = this; //duplicate
                             ngs.MovePiece(s, LeftAttack.Value);
+                            ngs.NextToMove = !NextToMove;
                             ToReturn.Add(ngs);
                         }
                     }
@@ -550,12 +558,14 @@ namespace Chess3
                         {
                             GameState ngs = this; //duplicate
                             ngs.MovePiece(s, RightAttack.Value);
+                            ngs.NextToMove = !NextToMove;
                             ToReturn.Add(ngs);
                         }
                         else if (!NextToMove && white.SquareOccupied(RightAttack.Value))
                         {
                             GameState ngs = this; //duplicate
                             ngs.MovePiece(s, RightAttack.Value);
+                            ngs.NextToMove = !NextToMove;
                             ToReturn.Add(ngs);
                         }
                     }
@@ -604,6 +614,7 @@ namespace Chess3
                             {
                                 GameState ngs = this; //duplicate
                                 ngs.MovePiece(s, PotentialTarget);
+                                ngs.NextToMove = !NextToMove;
                                 ToReturn.Add(ngs);
                             }
                         }
@@ -654,6 +665,7 @@ namespace Chess3
                             {
                                 GameState ngs = this; //duplicate
                                 ngs.MovePiece(s, PotentialTarget);
+                                ngs.NextToMove = !NextToMove;
                                 ToReturn.Add(ngs);
                             }
                         }
@@ -790,6 +802,7 @@ namespace Chess3
                     {
                         GameState pgs = this; // "copy" the game
                         pgs.MovePiece(origin, NewPosition); //Move the piece, also capturing.
+                        pgs.NextToMove = !NextToMove;
                         ToReturn.Add(pgs); //Add it to the list
                         break; //We can capture this piece but cannot continue to move "past" this piece, so break.
                     }
@@ -797,6 +810,7 @@ namespace Chess3
                     {
                         GameState pgs = this; // "copy" the game
                         pgs.MovePiece(origin, NewPosition); //Move the piece, also capturing.
+                        pgs.NextToMove = !NextToMove;
                         ToReturn.Add(pgs); //Add it to the list
                     }
                 }
