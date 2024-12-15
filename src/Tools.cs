@@ -68,19 +68,15 @@ namespace Chess3
             string destination = "";
             foreach (Square s in Enum.GetValues(typeof(Square)))
             {
-                if (before.White.SquareOccupied(s) && !after.White.SquareOccupied(s))
+                if (before.AllPieces.SquareOccupied(s) && !after.AllPieces.SquareOccupied(s)) //a piece was there, but now is not. This was the origin!
                 {
                     origin = s.ToString();
                 }
-                else if (before.Black.SquareOccupied(s) && !after.Black.SquareOccupied(s))
-                {
-                    origin = s.ToString();
-                }
-                else if (after.White.SquareOccupied(s) && !before.White.SquareOccupied(s))
+                else if (!before.AllPieces.SquareOccupied(s) && after.AllPieces.SquareOccupied(s)) //a piece was NOT there before but now IS there, so it was a move to an empty space. This is the destination!
                 {
                     destination = s.ToString();
                 }
-                else if (after.Black.SquareOccupied(s) && !before.Black.SquareOccupied(s))
+                else if ((before.White.SquareOccupied(s) && after.Black.SquareOccupied(s)) || (before.Black.SquareOccupied(s) && after.White.SquareOccupied(s))) //It was a black capturing a white or a white capturing a black, respectively
                 {
                     destination = s.ToString();
                 }
