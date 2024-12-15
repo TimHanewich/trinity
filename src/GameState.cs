@@ -410,31 +410,34 @@ namespace Chess3
                     {
                         if (!white.SquareOccupied(ForwardOne) && !black.SquareOccupied(ForwardOne)) //A pawn can only move forward if the spot in front of it is empty
                         {
+
+                            //Add it
                             GameState ngs = this; //duplicate
                             ngs.MovePiece(s, ForwardOne);
                             ToReturn.Add(ngs);
-                        }
-                    }
 
-                    //Is forward two possible?
-                    Square? ForwardTwo = null;
-                    if (NextToMove && Convert.ToInt32(s) >= 8 && Convert.ToInt32(s) <= 15) //It is a white pawn we are moving and the pawn is on rank 2
-                    {
-                        ForwardTwo = (Square)(s + 16);
-                    }
-                    else if (!NextToMove && Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 56) //It is a black pawn we are moving and the pawn is on rank 7
-                    {
-                        ForwardTwo = (Square)(s - 16);
-                    }
-                    if (ForwardTwo != null) //A two-space move is possible based on where the pawn is
-                    {
-                        if (!white.SquareOccupied(ForwardTwo.Value) && !black.SquareOccupied(ForwardTwo.Value)) //It is not occupied by any piece at all
-                        {
-                            GameState ngs = this; //duplicate
-                            ngs.MovePiece(s, ForwardTwo.Value);
-                            ToReturn.Add(ngs);
+                            //Is forward two possible?
+                            //We put the the forward-two check INSIDE the forward-one PASS because technically speaking, a forward-two move is only possible if a forward-one attack is possible
+                            Square? ForwardTwo = null;
+                            if (NextToMove && Convert.ToInt32(s) >= 8 && Convert.ToInt32(s) <= 15) //It is a white pawn we are moving and the pawn is on rank 2
+                            {
+                                ForwardTwo = (Square)(s + 16);
+                            }
+                            else if (!NextToMove && Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 56) //It is a black pawn we are moving and the pawn is on rank 7
+                            {
+                                ForwardTwo = (Square)(s - 16);
+                            }
+                            if (ForwardTwo != null) //A two-space move is possible based on where the pawn is
+                            {
+                                if (!white.SquareOccupied(ForwardTwo.Value) && !black.SquareOccupied(ForwardTwo.Value)) //It is not occupied by any piece at all
+                                {
+                                    GameState ngs2 = this; //duplicate
+                                    ngs2.MovePiece(s, ForwardTwo.Value);
+                                    ToReturn.Add(ngs2);
+                                }
+                            }
                         }
-                    }
+                    }      
 
                     //Is attack left possible?
                     Square? LeftAttack = null;
