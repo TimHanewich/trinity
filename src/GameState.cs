@@ -440,19 +440,19 @@ namespace Chess3
                         }
                     }
                 }
-                else if ((WhiteBishops.SquareOccupied(s) && NextToMove) || (BlackBishops.SquareOccupied(s) && NextToMove))
+                else if ((WhiteBishops.SquareOccupied(s) && NextToMove) || (BlackBishops.SquareOccupied(s) && !NextToMove))
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 9, -7, -9, 7));
                 }
-                else if ((WhiteRooks.SquareOccupied(s) && NextToMove) || (BlackRooks.SquareOccupied(s) && NextToMove))
+                else if ((WhiteRooks.SquareOccupied(s) && NextToMove) || (BlackRooks.SquareOccupied(s) && !NextToMove))
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 8, 1, -8, -1));
                 }
-                else if ((WhiteQueens.SquareOccupied(s) && NextToMove) || (BlackQueens.SquareOccupied(s) && NextToMove))
+                else if ((WhiteQueens.SquareOccupied(s) && NextToMove) || (BlackQueens.SquareOccupied(s) && !NextToMove))
                 {
                     ToReturn.AddRange(GenerateLinearMoves(s, 8, 9, 1, -7, -8, -9, -1, 7)); //All directions
                 }
-                else if ((WhiteKings.SquareOccupied(s) && NextToMove) || (BlackKings.SquareOccupied(s) && NextToMove))
+                else if ((WhiteKings.SquareOccupied(s) && NextToMove) || (BlackKings.SquareOccupied(s) && !NextToMove))
                 {
 
                 }
