@@ -20,7 +20,7 @@ namespace Chess3
             //Add in pawn rank evaluation (higher pawn ranks are better!)
             ToReturn = ToReturn + gs.PawnRankingEvaluation();
 
-            return Convert.ToSingle(gs.MaterialDifference());
+            return Convert.ToSingle(ToReturn);
         }
 
         //Minimax, with alpha-beta pruning
