@@ -48,5 +48,18 @@ namespace Chess3
             ulong AfterAnd = board & mask; //An AND operation. This value will have a 1 in it if the bit of position indeed ALSO had a 1 in it. Thus, we can determine YES, this bit was occupied if the value is > 0 and NO it was not occupied if it was 0.
             return AfterAnd > 0; //If it is 0, it was not occupied. If it was some value > 0, that specific bit was occupied.
         }        
+    
+        //Counts the number of bits in a ulong that are set to 1 (regardless of their placement)
+        //Made by llama3.2-3b
+        public static int Count1Bits(this ulong value)
+        {
+            int ToReturn = 0;
+            while (value != 0)
+            {
+                ToReturn = ToReturn + (int)(value & 1);
+                value = value >> 1;
+            }
+            return ToReturn;
+        }
     }
 }

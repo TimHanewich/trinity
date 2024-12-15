@@ -601,6 +601,29 @@ namespace Chess3
             return ToReturn.ToArray();
         }    
     
+        public int MaterialDifference()
+        {
+            int white = 0;
+            white = white + WhitePawns.Count1Bits();
+            white = white + (WhiteKnights.Count1Bits() * 3);
+            white = white + (WhiteBishops.Count1Bits() * 3);
+            white = white + (WhiteRooks.Count1Bits() * 5);
+            white = white + (WhiteQueens.Count1Bits() * 10);
+            white = white + (WhiteKings.Count1Bits() * 25);
+
+            int black = 0;
+            black = black + WhitePawns.Count1Bits();
+            black = black + (WhiteKnights.Count1Bits() * 3);
+            black = black + (WhiteBishops.Count1Bits() * 3);
+            black = black + (WhiteRooks.Count1Bits() * 5);
+            black = black + (WhiteQueens.Count1Bits() * 10);
+            black = black + (WhiteKings.Count1Bits() * 25);
+
+            Console.WriteLine(white);
+            Console.WriteLine(black);
+            return white - black;
+        }
+
         #region "internal tools"
 
         // Performs a "linear" analysis for moves originating from a specific square, in multiple possible directions.
