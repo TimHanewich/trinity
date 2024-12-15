@@ -11,6 +11,9 @@ namespace Chess3
         {
             float ToReturn = gs.MaterialDifference(); //Start with material difference
 
+            //What to speed things up? Comment out the following additional static positional evaluations!
+            //However, doing so will reduce the engine's ability to play positionally... it will become obsessed ONLY with material difference!
+
             //Add in center of board difference
             ToReturn = ToReturn + gs.CenterOfBoardEvaluation();
 
