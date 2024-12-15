@@ -6,6 +6,8 @@ namespace Chess3
     {
 
         //Evaluates the "static" position on the board (without "looking ahead" moves), considering things like material difference, positioning, control of board, etc.
+        //The more criteria/considerations we add to this function, the longer it takes.
+        //However, the benefit of adding these is, in a more positional game (not hand-to-hand combat, taking and taking back and forth), the engine can make better decisions looking at positioning instead of ONLY caring about material difference with no regard to positioning on the board
         public static float StaticEvaluate(this GameState gs)
         {
             return Convert.ToSingle(gs.MaterialDifference());
