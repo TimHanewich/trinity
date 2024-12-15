@@ -5,6 +5,9 @@ namespace Chess3
     public static class Evaluation
     {
 
+        public static float[] CenterOfBoardSquareWeights = new float[]{0f,0f,0f,0f,0f,0f,0f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0f,0f,0f,0f,0f,0f,0f}; //Weighted eval scores to boost pieces on certain squares, rewarding more for the center squares. In the order of A1, B1, C1, D1 etc... (same as Square enum) 
+
+
         //Evaluates the "static" position on the board (without "looking ahead" moves), considering things like material difference, positioning, control of board, etc.
         //The more criteria/considerations we add to this function, the longer it takes.
         //However, the benefit of adding these is, in a more positional game (not hand-to-hand combat, taking and taking back and forth), the engine can make better decisions looking at positioning instead of ONLY caring about material difference with no regard to positioning on the board
@@ -106,17 +109,14 @@ namespace Chess3
         //Get additional scoring based on a particular colors center of board positioning
         public static float CenterOfBoardEvaluation(ulong all_color_pieces)
         {
-            float[] SquareEvals = new float[]{0f,0f,0f,0f,0f,0f,0f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.15f,0.15f,0.1f,0.05f,0f, 0f,0.05f,0.1f,0.1f,0.1f,0.1f,0.05f,0f, 0f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f,0f, 0f,0f,0f,0f,0f,0f,0f,0f}; //Weighted eval scores to boost pieces on certain squares, rewarding more for the center squares. In the order of A1, B1, C1, D1 etc... (same as Square enum) 
-            
             float ToReturn = 0.0f;
             foreach (Square s in Enum.GetValues(typeof(Square)))
             {
                 if (all_color_pieces.SquareOccupied(s))
                 {
-                    ToReturn = ToReturn + SquareEvals[Convert.ToInt32(s)];
+                    ToReturn = ToReturn + CenterOfBoardSquareWeights[Convert.ToInt32(s)];
                 }
             }
-
             return ToReturn;
         }
 
