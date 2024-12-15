@@ -10,22 +10,18 @@ namespace Chess3
     {
         public static void Main(string[] args)
         {
-            GameState starting = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-            Console.WriteLine(starting.MaterialDifference());
-            Console.ReadLine();
+            
 
             GameState gs = GameState.Load("r5k1/1p3p2/2p2qpb/2PpR3/3P2r1/pP1Q1NP1/P4PK1/7R b - - 1 33");
             gs.Print();
 
+            DateTime t1 = DateTime.UtcNow;
+            GameState ngs = gs.OptimalNextState();
+            DateTime t2 = DateTime.UtcNow;
+            TimeSpan ts = t2 - t1;
+            Console.WriteLine(ts.TotalSeconds);
+            //ngs.Print();
             
-            GameState[] nextstates = gs.PossibleNextStates();
-            Console.WriteLine(nextstates.Length.ToString() + " potential next states");
-            Console.ReadLine();
-            foreach (GameState ngs in nextstates)
-            {
-                ngs.Print();
-                Console.ReadLine();
-            }
         }
 
     }
