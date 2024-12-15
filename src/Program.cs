@@ -9,11 +9,19 @@ namespace Chess3
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {          
+            GameState gs = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Console.WriteLine(gs.StaticEvaluate());
             
+            
+        }
 
+        public static void PerfTest()
+        {
             GameState gs = GameState.Load("r5k1/1p3p2/2p2qpb/2PpR3/3P2r1/pP1Q1NP1/P4PK1/7R b - - 1 33");
             gs.Print();
+            Console.WriteLine(gs.CenterOfBoardEvaluation());
+            Console.ReadLine();
 
             DateTime t1 = DateTime.UtcNow;
             GameState ngs = gs.OptimalNextState();
@@ -21,7 +29,6 @@ namespace Chess3
             TimeSpan ts = t2 - t1;
             Console.WriteLine(ts.TotalSeconds);
             //ngs.Print();
-            
         }
 
     }
