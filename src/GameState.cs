@@ -609,7 +609,7 @@ namespace Chess3
         public GameState[] GenerateLinearMoves(Square origin, params int[] shifts)
         {
             //Validate shifts
-            HashSet<int> ValidShifts = new HashSet<int>(){7, 8, 9, -1, 1, -8, -8, -7};
+            HashSet<int> ValidShifts = new HashSet<int>(){7, 8, 9, -1, 1, -9, -8, -7};
             foreach (int shift in shifts)
             {
                 if (ValidShifts.Contains(shift) == false)
