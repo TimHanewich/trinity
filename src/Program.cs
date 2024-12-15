@@ -9,12 +9,8 @@ namespace Chess3
     public class Program
     {
         public static void Main(string[] args)
-        {          
-            PerfTest();
-
-            GameState gs = GameState.Load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-        
-            
+        {                  
+            Game();
         }
 
         public static void PerfTest()
@@ -60,9 +56,12 @@ namespace Chess3
                 Console.WriteLine("Current position: " + GAME.ToString());
 
                 //Evaluate
-                Console.Write("Evaluating my next move...");
+                Console.Write("Evaluating my next move... ");
+                DateTime t1 = DateTime.UtcNow;
                 GameState OptimalNextState = GAME.OptimalNextState(depth);
-                Console.WriteLine("Selected!");
+                DateTime t2 = DateTime.UtcNow;
+                TimeSpan ts = t2 - t1;
+                Console.WriteLine("Selected in " + ts.TotalSeconds.ToString("#,##0.0") + " seconds.");
 
 
                 //Deduce move
@@ -72,15 +71,37 @@ namespace Chess3
 
                 //Ask them what their move is
                 Console.WriteLine();
-                Console.WriteLine("What is the state after your move?");
-                Console.Write("State: ");
-                string? ns = Console.ReadLine();
-                if (ns != null)
+                Console.WriteLine("What about you? Enter in either the FEN of the state AFTER your move or the origin square of your move");
+                Console.Write("State/Origin: ");
+                string? ip = Console.ReadLine();
+                if (ip != null)
                 {
-                    GAME = GameState.Load(ns);
+                    if (ip.Length == 2) //They gave us a square, so must ask for follow up
+                    {
+                        //First of all, "execute" the optimal move by making it the game
+                        GAME = OptimalNextState;
+
+                        Square origin = Enum.Parse<Square>(ip);
+                        Console.Write("Destination: ");
+                        ip = Console.ReadLine();
+                        if (ip != null)
+                        {
+                            Square destination = Enum.Parse<Square>(ip);
+                            
+                            //Execute move
+                            Console.Write("Executing move " + origin.ToString() + " to " + destination.ToString() + "... ");
+                            GAME.MovePiece(origin, destination); //move
+                            Console.WriteLine("Moved!");
+                        }
+                    }
+                    else //it was a full FEN, so parse it
+                    {
+                        GAME = GameState.Load(ip);
+                    }
                 }
                 Console.WriteLine();
 
+                //Increment move counter purely for reporting
                 move = move + 1;
             }
         }
