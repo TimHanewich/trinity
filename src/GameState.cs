@@ -395,7 +395,50 @@ namespace Chess3
                 }
                 else if ((WhiteKnights.SquareOccupied(s) && NextToMove) || (BlackKnights.SquareOccupied(s) && !NextToMove))
                 {
+                    //Construct list of potential moves
+                    List<Square> PotentialTargets = new List<Square>();
 
+                    //movements towards the right
+                    if (Convert.ToInt32(s) % 8 < 6) //We are in files A-F (not in the last two, G + H)
+                    {
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 17)); //2-up, 1-right
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 10)); //1-up, 2-right
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 6)); //1-down, 2-right
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 15)); //2-down, 1-right
+                    }
+                    else if (Convert.ToInt32(s) % 8 < 7) //We are in the G file, so can only do 1 to the right (2-up,2-down)
+                    {
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 17)); //2-up, 1-right
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 15)); //2-down, 1-right
+                    }
+
+                    //movements towards the left
+                    if (Convert.ToInt32(s) % 8 > 1) //We are in files C-H (not in the first two, A + B)
+                    {
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 15)); //2-up, 1-left
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 6)); //1-up, 2-left
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 10)); //1-down, 2-left
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 17)); //2-down, 1-left
+                    }
+                    else if (Convert.ToInt32(s) % 8 > 0) //We are in the B file, so can only do 1 to the left (2-up,2-down)
+                    {
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) + 15)); //2-up, 1-right
+                        PotentialTargets.Add((Square)(Convert.ToInt32(s) - 17)); //2-down, 1-right
+                    }
+
+                    //Consider viability of each move. And if the move is viable, add the potential resulting position
+                    foreach (Square PotentialTarget in PotentialTargets)
+                    {
+                        if (PotentialTarget >= Square.A1 && PotentialTarget <= Square.H8) //within the bounds of the board
+                        {
+                            if ((NextToMove && !White.SquareOccupied(PotentialTarget)) || (!NextToMove && !Black.SquareOccupied(PotentialTarget))) //As long as the square we are trying to move to is NOT occupied by the color we are trying to move to (a friendly piece), we can move to it! Whether it is empty or occupied by an enemy piece, we can move to it (or move to it via a capture)
+                            {
+                                GameState ngs = this; //duplicate
+                                ngs.MovePiece(s, PotentialTarget);
+                                ToReturn.Add(ngs);
+                            }
+                        }
+                    }
                 }
                 else if ((WhiteBishops.SquareOccupied(s) && NextToMove) || (BlackBishops.SquareOccupied(s) && NextToMove))
                 {
