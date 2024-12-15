@@ -383,5 +383,70 @@ namespace Chess3
             }
         }
         
+    
+        #region "internal tools"
+
+        // Performs a "linear" analysis for moves originating from a specific square, in multiple possible directions.
+        // The "shifts" parameter allows you to specify what directions the piece can move in
+        // For example, a queen can shift: [8, -8, -1, 1], which would be up 1 rank (+8 in bitboard), down 1 rank (-8 in bitboard), left 1 file (-1 on bitboard) and right 1 file (+1 on bitboard)
+        public GameState[] GenerateLinearMoves(Square origin, params int[] shifts)
+        {
+            //Determine positions of "friendly" pieces and positions of "enemy" pieces
+            ulong white = White; //Get bitboard of ALL white pieces
+            ulong black = Black; //Get bitboard of ALL black pieces
+            ulong friendlies; //"label" we will asign to either white/black
+            ulong enemies; //"label" we will asign to either white/black
+            if (white.SquareOccupied(origin)) //If the piece we are generating moves for is white, white are friendlies.
+            {
+                friendlies = white;
+                enemies = black;
+            }
+            else if (black.SquareOccupied(origin)) //If the piece we are generating moves for is black, black are friendlies.
+            {
+                friendlies = black;
+                enemies = white;
+            }
+            else
+            {
+                throw new Exception("Unable to generate linear moves for piece on square " + origin.ToString() + " because a piece wasn't detected on that square (of either color)!");
+            }
+
+            //Calculate potential next states
+            List<GameState> ToReturn = new List<GameState>();
+            foreach (int shift in shifts)
+            {
+                Square NewPosition = origin;
+                while (true)
+                {
+                    NewPosition = (Square)(NewPosition + shift); //move the potential target by one to simulate the movement of the piece, by just one step.
+                    if (Convert.ToInt32(NewPosition) > 63 || Convert.ToInt32(NewPosition) < 0) //We are "out of bounds", not on the chess board, so break the loop.
+                    {
+                        break; 
+                    }
+                    else if (friendlies.SquareOccupied(NewPosition)) //If there is a "friendly" occupying this square, we can't move to it. So just break!
+                    {
+                        break; 
+                    }
+                    else if (enemies.SquareOccupied(NewPosition)) //There is an enemy piece in this position. 
+                    {
+                        GameState pgs = this; // "copy" the game
+                        pgs.MovePiece(origin, NewPosition); //Move the piece, also capturing.
+                        ToReturn.Add(pgs); //Add it to the list
+                        break; //We can capture this piece but cannot continue to move "past" this piece, so break.
+                    }
+                    else //It is an empty space! So add it! And then continue!
+                    {
+                        GameState pgs = this; // "copy" the game
+                        pgs.MovePiece(origin, NewPosition); //Move the piece, also capturing.
+                        ToReturn.Add(pgs); //Add it to the list
+                    }
+                }
+            }
+
+            return ToReturn.ToArray();
+        }
+
+        #endregion
+    
     }
 }
