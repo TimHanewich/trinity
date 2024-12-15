@@ -14,3 +14,4 @@ Each test below finds the best optimal next state at a search depth of 5 for the
 |`cd9a704b4b1e231a1aea96c04488566c9e9d7f4b`|5.13|Uses bitboard, unlike `chess2`. Pre-optimization.|
 |`f5f58f117b946e302001225743af0e94e3b6ee80`|5.40|Added pawn promotion consideration|
 |`a888ac38ea77c73e0a9c05d80533117125ca68fc`|7.20|Added center-of-board evaluation as part of static positional eval|
+|`eb0de8d4b55e7bc46ab37212f861c93b79c468e0`|8.5|Added pawn ranking evaluation as part of static positional eval|
