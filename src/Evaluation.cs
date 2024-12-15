@@ -215,7 +215,7 @@ namespace Chess3
         {
             return PawnRankingEvaluation(state.WhitePawns, true) - PawnRankingEvaluation(state.BlackPawns, false);
         }
-
+        
         #endregion
     }
 }
