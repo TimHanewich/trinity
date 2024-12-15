@@ -5,19 +5,19 @@ namespace Chess3
     public static class Evaluation
     {
         //Minimax, with alpha-beta pruning
-        private static int minimax_abp(this GameState gs, int depth, int alpha, int beta, bool color)
+        private static float minimax_abp(this GameState gs, float depth, float alpha, float beta, bool color)
         {
             if (depth == 0)
             {
-                return gs.MaterialDifference(); //using the raw material difference right now, but in the future should probably consider things like control of board, position, etc.
+                return Convert.ToSingle(gs.MaterialDifference()); //using the raw material difference right now, but in the future should probably consider things like control of board, position, etc.
             }
 
             if (color)
             {
-                int BestValueSeenSoFar = int.MinValue;
+                float BestValueSeenSoFar = int.MinValue;
                 foreach (GameState ngs in gs.PossibleNextStates())
                 {
-                    int nbsValue = ngs.minimax_abp(depth - 1, alpha, beta, !color);
+                    float nbsValue = ngs.minimax_abp(depth - 1, alpha, beta, !color);
                     BestValueSeenSoFar = Math.Max(BestValueSeenSoFar, nbsValue);
                     alpha = Math.Max(alpha, BestValueSeenSoFar);
                     if (beta <= alpha)
@@ -29,10 +29,10 @@ namespace Chess3
             }
             else
             {
-                int BestValueSeenSoFar = int.MaxValue;
+                float BestValueSeenSoFar = int.MaxValue;
                 foreach (GameState ngs in gs.PossibleNextStates())
                 {
-                    int nbsValue = ngs.minimax_abp(depth - 1, alpha, beta, !color);
+                    float nbsValue = ngs.minimax_abp(depth - 1, alpha, beta, !color);
                     BestValueSeenSoFar = Math.Min(BestValueSeenSoFar, nbsValue);
                     beta = Math.Min(beta, BestValueSeenSoFar);
                     if (beta <= alpha)
@@ -45,7 +45,7 @@ namespace Chess3
         }
 
         //Uses the minimax function to "peer ahead"
-        public static int Evaluate(this GameState gs, int depth)
+        public static float Evaluate(this GameState gs, int depth)
         {
             //return bs.minimax(depth, bs.NextToMove);
             return gs.minimax_abp(depth, int.MinValue, int.MaxValue, gs.NextToMove);
@@ -58,12 +58,12 @@ namespace Chess3
 
             //Select best
             GameState highest = PotentialNextStates[0];
-            int highestEval = int.MinValue;
+            float highestEval = int.MinValue;
             GameState lowest = PotentialNextStates[0];
-            int lowestEval = int.MaxValue;
+            float lowestEval = int.MaxValue;
             foreach (GameState pgs in PotentialNextStates)
             {
-                int eval = pgs.Evaluate(eval_depth-1);
+                float eval = pgs.Evaluate(eval_depth-1);
                 if (eval > highestEval)
                 {
                     highest = pgs;
