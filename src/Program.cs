@@ -10,7 +10,7 @@ namespace Chess3
     {
         public static void Main(string[] args)
         {                  
-            Game();
+            PrintNextMoveEvals();
         }
 
         public static void PerfTest()
@@ -107,5 +107,35 @@ namespace Chess3
             }
         }
 
+        public static void PrintNextMoveEvals()
+        {
+            string FEN = "r2q2k1/1p3pb1/2p3p1/2PpR1N1/1P1Q4/p5P1/P4PK1/7R b - - 2 36";
+            int depth = 3;
+
+            List<(GameState, float)> evals = new List<(GameState, float)>();
+            GameState gs = GameState.Load(FEN);
+            foreach (GameState ngs in gs.PossibleNextStates())
+            {
+                float eval = ngs.Evaluate(depth - 1);
+                Console.WriteLine(ngs.ToString() + " = " + eval.ToString());
+                evals.Add((ngs, eval));
+            }
+
+            Console.WriteLine("-------");
+            while (evals.Count > 0)
+            {
+                (GameState, float) HighestSeen = evals[0];
+                foreach ((GameState, float) eval in evals)
+                {
+                    if (eval.Item2 > HighestSeen.Item2)
+                    {
+                        HighestSeen = eval;
+                    }
+                }
+
+                Console.WriteLine(HighestSeen.Item1.ToString() + " = " + HighestSeen.Item2.ToString("#,##0.0"));
+                evals.Remove(HighestSeen);
+            }
+        }
     }
 }
