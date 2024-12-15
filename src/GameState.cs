@@ -389,7 +389,7 @@ namespace Chess3
 
             foreach (Square s in Enum.GetValues(typeof(Square)))
             {
-                if ((WhitePawns.SquareOccupied(s) && NextToMove))
+                if (WhitePawns.SquareOccupied(s) && NextToMove)
                 {
 
                 }
