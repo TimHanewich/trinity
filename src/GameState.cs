@@ -392,6 +392,109 @@ namespace Chess3
                 if ((WhitePawns.SquareOccupied(s) && NextToMove) || (BlackPawns.SquareOccupied(s) && !NextToMove))
                 {
 
+                    //Cache white and black pieces
+                    ulong white = White;
+                    ulong black = Black;
+
+                    //Is forward one possible?
+                    Square ForwardOne;
+                    if (NextToMove)
+                    {
+                        ForwardOne = (Square)(s + 8);
+                    }
+                    else
+                    {
+                        ForwardOne = (Square)(s - 8);
+                    }
+                    if (ForwardOne >= Square.A1 && ForwardOne <= Square.H8) //It is on the board (not out of bounds)
+                    {
+                        if (!white.SquareOccupied(ForwardOne) && !black.SquareOccupied(ForwardOne)) //A pawn can only move forward if the spot in front of it is empty
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, ForwardOne);
+                            ToReturn.Add(ngs);
+                        }
+                    }
+
+                    //Is forward two possible?
+                    Square? ForwardTwo = null;
+                    if (NextToMove && Convert.ToInt32(s) >= 8 && Convert.ToInt32(s) <= 15) //It is a white pawn we are moving and the pawn is on rank 2
+                    {
+                        ForwardTwo = (Square)(s + 16);
+                    }
+                    else if (!NextToMove && Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 56) //It is a black pawn we are moving and the pawn is on rank 7
+                    {
+                        ForwardTwo = (Square)(s - 16);
+                    }
+                    if (ForwardTwo != null) //A two-space move is possible based on where the pawn is
+                    {
+                        if (!white.SquareOccupied(ForwardTwo.Value) && !black.SquareOccupied(ForwardTwo.Value)) //It is not occupied by any piece at all
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, ForwardTwo.Value);
+                            ToReturn.Add(ngs);
+                        }
+                    }
+
+                    //Is attack left possible?
+                    Square? LeftAttack = null;
+                    if ((Convert.ToInt32(s) % 8) != 0) //It is NOT rank A, so a leftward move is possible
+                    {
+                        if (NextToMove)
+                        {
+                            LeftAttack = (Square)(s + 7);
+                        }
+                        else
+                        {
+                            LeftAttack = (Square)(s - 9);
+                        }
+                    }
+                    if (LeftAttack.HasValue) //If a left-attack is even a possibility
+                    {
+                        if (NextToMove && black.SquareOccupied(LeftAttack.Value)) //It is a white pawn moving and the potential attack square is a black piece
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, LeftAttack.Value);
+                            ToReturn.Add(ngs);
+                        }
+                        else if (!NextToMove && white.SquareOccupied(LeftAttack.Value))
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, LeftAttack.Value);
+                            ToReturn.Add(ngs);
+                        }
+                    }
+
+                    //Is attack right possible?
+                    Square? RightAttack = null;
+                    if ((Convert.ToInt32(s) % 8) != 7) //It is NOT rank H, so a rightward move is possible
+                    {
+                        if (NextToMove)
+                        {
+                            RightAttack = (Square)(s + 9);
+                        }
+                        else
+                        {
+                            RightAttack = (Square)(s - 7);
+                        }
+                    }
+                    if (RightAttack.HasValue) //If a right-attack is even a possibility
+                    {
+                        if (NextToMove && black.SquareOccupied(RightAttack.Value)) //It is a white pawn moving and the potential attack square is a black piece
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, RightAttack.Value);
+                            ToReturn.Add(ngs);
+                        }
+                        else if (!NextToMove && white.SquareOccupied(RightAttack.Value))
+                        {
+                            GameState ngs = this; //duplicate
+                            ngs.MovePiece(s, RightAttack.Value);
+                            ToReturn.Add(ngs);
+                        }
+                    }
+
+
                 }
                 else if ((WhiteKnights.SquareOccupied(s) && NextToMove) || (BlackKnights.SquareOccupied(s) && !NextToMove))
                 {
