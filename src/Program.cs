@@ -12,8 +12,13 @@ namespace Chess3
         {
             GameState gs = GameState.Load("PPPPPPPP/8/8/Q7/7Q/8/8/8");
             gs.Print();
+            Console.WriteLine("0000000000000000");
             
-            
+            GameState[] nextstates = gs.PossibleNextStates();
+            foreach (GameState ngs in nextstates)
+            {
+                ngs.Print();
+            }
         }
 
     }

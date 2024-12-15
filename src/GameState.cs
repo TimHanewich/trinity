@@ -382,7 +382,41 @@ namespace Chess3
                 throw new Exception("Unable to execute move from " + origin.ToString() + " to " + destination.ToString() + "! No piece detected on origin square " + origin.ToString() + ".");
             }
         }
-        
+
+        public GameState[] PossibleNextStates()
+        {
+            List<GameState> ToReturn = new List<GameState>();
+
+            foreach (Square s in Enum.GetValues(typeof(Square)))
+            {
+                if (WhitePawns.SquareOccupied(s) || BlackPawns.SquareOccupied(s))
+                {
+
+                }
+                else if (WhiteKnights.SquareOccupied(s) || BlackKnights.SquareOccupied(s))
+                {
+
+                }
+                else if (WhiteBishops.SquareOccupied(s) || BlackBishops.SquareOccupied(s))
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 9, -7, -9, 7));
+                }
+                else if (WhiteRooks.SquareOccupied(s) || BlackRooks.SquareOccupied(s))
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 8, 1, -8, -1));
+                }
+                else if (WhiteQueens.SquareOccupied(s) || BlackQueens.SquareOccupied(s))
+                {
+                    ToReturn.AddRange(GenerateLinearMoves(s, 8, 9, 1, -7, -8, -9, -1, 7)); //All directions
+                }
+                else if (WhiteKings.SquareOccupied(s) || BlackKings.SquareOccupied(s))
+                {
+
+                }
+            }
+
+            return ToReturn.ToArray();
+        }    
     
         #region "internal tools"
 
