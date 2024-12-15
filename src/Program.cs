@@ -91,6 +91,7 @@ namespace Chess3
                             //Execute move
                             Console.Write("Executing move " + origin.ToString() + " to " + destination.ToString() + "... ");
                             GAME.MovePiece(origin, destination); //move
+                            GAME.NextToMove = !GAME.NextToMove; //Flip next to move!
                             Console.WriteLine("Moved!");
                         }
                     }
