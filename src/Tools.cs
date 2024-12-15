@@ -84,10 +84,6 @@ namespace Chess3
                 {
                     destination = s.ToString();
                 }
-                else
-                {
-                    throw new Exception("Unable to deduce move that resulted in state '" + after.ToString() + "' from '" + before.ToString() + "'.");
-                }
             }
             return origin + " --> " + destination;
         }
