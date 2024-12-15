@@ -85,6 +85,10 @@ namespace Chess3
                     destination = s.ToString();
                 }
             }
+            if (origin == "" || destination == "")
+            {
+                throw new Exception("Unable to deduce movr that resulted in game state '" + after.ToString() + "' from game state '" + before.ToString() + "'!");
+            }
             return origin + " --> " + destination;
         }
     }
