@@ -13,3 +13,4 @@ Each test below finds the best optimal next state at a search depth of 5 for the
 |[chess2](https://github.com/TimHanewich/chess2) @ commit `aa15331b3d77e629737d54b35c79ea01f5869352`|38.16||
 |`cd9a704b4b1e231a1aea96c04488566c9e9d7f4b`|5.13|Uses bitboard, unlike `chess2`. Pre-optimization.|
 |`f5f58f117b946e302001225743af0e94e3b6ee80`|5.40|Added pawn promotion consideration|
+|`a888ac38ea77c73e0a9c05d80533117125ca68fc`|7.20|Added center-of-board evaluation as part of static positional eval|
