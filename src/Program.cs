@@ -10,7 +10,7 @@ namespace Chess3
     {
         public static void Main(string[] args)
         {                  
-            PrintNextMoveEvals();
+            PerfTest();
         }
 
         public static void PerfTest()
@@ -23,8 +23,6 @@ namespace Chess3
             DateTime t2 = DateTime.UtcNow;
             TimeSpan ts = t2 - t1;
             Console.WriteLine(ts.TotalSeconds.ToString() + " seconds");
-            Console.ReadLine();
-            //ngs.Print();
         }
 
         public static void Game()
