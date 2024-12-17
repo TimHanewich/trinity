@@ -23,3 +23,5 @@ Each test below finds the best optimal next state at a search depth of 5 for the
 |`a888ac38ea77c73e0a9c05d80533117125ca68fc`|7.20|Added center-of-board evaluation as part of static positional eval|
 |`eb0de8d4b55e7bc46ab37212f861c93b79c468e0`|8.5|Added pawn ranking evaluation as part of static positional eval|
 |`3209404a4c0b601c7f384a0e7a67d5c454044b76`|66|Fixed a bunch of things that were wrong previously. Whoops|
+|`c5de5fa525be9f4151a0d2d028dc4e8fdd02ba18`|65|Optimized `MovePiece` function|
+|`47c2173a056c2849ffd4a100a53d837e49170db7`|63|Optimized `ClearSquare` function|
