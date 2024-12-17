@@ -314,77 +314,80 @@ namespace Chess3
         //If there is a piece in the destination, replaces it (captures it)
         public void MovePiece(Square origin, Square destination)
         {
-            if (WhitePawns.SquareOccupied(origin))
+            ulong OriginMask = 1UL << Convert.ToInt32(origin);
+            ulong DestinationMask = 1UL << Convert.ToInt32(destination);
+
+            if ((WhitePawns & OriginMask) != 0)
             {
-                WhitePawns = WhitePawns.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhitePawns = WhitePawns.SetSquare(destination, true);
+                WhitePawns = WhitePawns & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhitePawns = WhitePawns | DestinationMask; //Turn "on" the destination bit
             }
-            else if (WhiteKnights.SquareOccupied(origin))
+            else if ((WhiteKnights & OriginMask) != 0)
             {
-                WhiteKnights = WhiteKnights.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhiteKnights = WhiteKnights.SetSquare(destination, true);
+                WhiteKnights = WhiteKnights & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhiteKnights = WhiteKnights | DestinationMask; //Turn "on" the destination bit
             }
-            else if (WhiteBishops.SquareOccupied(origin))
+            else if ((WhiteBishops & OriginMask) != 0)
             {
-                WhiteBishops = WhiteBishops.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhiteBishops = WhiteBishops.SetSquare(destination, true);
+                WhiteBishops = WhiteBishops & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhiteBishops = WhiteBishops | DestinationMask; //Turn "on" the destination bit
             }
-            else if (WhiteRooks.SquareOccupied(origin))
+            else if ((WhiteRooks & OriginMask) != 0)
             {
-                WhiteRooks = WhiteRooks.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhiteRooks = WhiteRooks.SetSquare(destination, true);
+                WhiteRooks = WhiteRooks & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhiteRooks = WhiteRooks | DestinationMask; //Turn "on" the destination bit
             }
-            else if (WhiteQueens.SquareOccupied(origin))
+            else if ((WhiteQueens & OriginMask) != 0)
             {
-                WhiteQueens = WhiteQueens = WhiteQueens.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhiteQueens = WhiteQueens = WhiteQueens.SetSquare(destination, true);
+                WhiteQueens = WhiteQueens & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhiteQueens = WhiteQueens | DestinationMask; //Turn "on" the destination bit
             }
-            else if (WhiteKings.SquareOccupied(origin))
+            else if ((WhiteKings & OriginMask) != 0)
             {
-                WhiteKings = WhiteKings.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                WhiteKings = WhiteKings.SetSquare(destination, true);
+                WhiteKings = WhiteKings & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                WhiteKings = WhiteKings | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackPawns.SquareOccupied(origin))
+            if ((BlackPawns & OriginMask) != 0)
             {
-                BlackPawns = BlackPawns.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackPawns = BlackPawns.SetSquare(destination, true);
+                BlackPawns = BlackPawns & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackPawns = BlackPawns | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackKnights.SquareOccupied(origin))
+            else if ((BlackKnights & OriginMask) != 0)
             {
-                BlackKnights = BlackKnights.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackKnights = BlackKnights.SetSquare(destination, true);
+                BlackKnights = BlackKnights & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackKnights = BlackKnights | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackBishops.SquareOccupied(origin))
+            else if ((BlackBishops & OriginMask) != 0)
             {
-                BlackBishops = BlackBishops.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackBishops = BlackBishops.SetSquare(destination, true);
+                BlackBishops = BlackBishops & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackBishops = BlackBishops | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackRooks.SquareOccupied(origin))
+            else if ((BlackRooks & OriginMask) != 0)
             {
-                BlackRooks = BlackRooks.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackRooks = BlackRooks.SetSquare(destination, true);
+                BlackRooks = BlackRooks & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackRooks = BlackRooks | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackQueens.SquareOccupied(origin))
+            else if ((BlackQueens & OriginMask) != 0)
             {
-                BlackQueens = BlackQueens.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackQueens = BlackQueens.SetSquare(destination, true);
+                BlackQueens = BlackQueens & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackQueens = BlackQueens | DestinationMask; //Turn "on" the destination bit
             }
-            else if (BlackKings.SquareOccupied(origin))
+            else if ((BlackKings & OriginMask) != 0)
             {
-                BlackKings = BlackKings.SetSquare(origin, false);
-                ClearSquare(destination); //Clear whatever is on the destination square, if anything
-                BlackKings = BlackKings.SetSquare(destination, true);
+                BlackKings = BlackKings & ~OriginMask; //clear out the bit by inverting and using AND
+                ClearSquare(destination); //Clear destination square (in case there is something occupying)
+                BlackKings = BlackKings | DestinationMask; //Turn "on" the destination bit
             }
             else
             {
