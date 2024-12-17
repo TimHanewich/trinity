@@ -22,3 +22,4 @@ Each test below finds the best optimal next state at a search depth of 5 for the
 |`f5f58f117b946e302001225743af0e94e3b6ee80`|5.40|Added pawn promotion consideration|
 |`a888ac38ea77c73e0a9c05d80533117125ca68fc`|7.20|Added center-of-board evaluation as part of static positional eval|
 |`eb0de8d4b55e7bc46ab37212f861c93b79c468e0`|8.5|Added pawn ranking evaluation as part of static positional eval|
+|`3209404a4c0b601c7f384a0e7a67d5c454044b76`|66|Fixed a bunch of things that were wrong previously. Whoops|
