@@ -353,7 +353,7 @@ namespace Chess3
                 ClearSquare(destination); //Clear destination square (in case there is something occupying)
                 WhiteKings = WhiteKings | DestinationMask; //Turn "on" the destination bit
             }
-            if ((BlackPawns & OriginMask) != 0)
+            else if ((BlackPawns & OriginMask) != 0)
             {
                 BlackPawns = BlackPawns & ~OriginMask; //clear out the bit by inverting and using AND
                 ClearSquare(destination); //Clear destination square (in case there is something occupying)
